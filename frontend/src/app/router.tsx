@@ -18,7 +18,14 @@ import { SearchPage } from '../pages/search/SearchPage'
 import { AdminDashboardPage } from '../pages/admin/AdminDashboardPage'
 import { NotificationsPage } from '../pages/notifications/NotificationsPage'
 
-const isAuthed = () => false // TODO: integrate with auth state
+const isAuthed = () => {
+  // Temporary dev auth: ?auth=1 enables authed routes for UI testing
+  if (typeof window !== 'undefined') {
+    const params = new URLSearchParams(window.location.search)
+    if (params.get('auth') === '1') return true
+  }
+  return false
+}
 
 export const router = createBrowserRouter([
   {
